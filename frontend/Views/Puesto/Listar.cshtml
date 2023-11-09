@@ -1,0 +1,55 @@
+@model List<Puesto>
+@{
+   ViewData["Title"] = "Lista de empleados";
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+  <h5 class="card-header">Puestos</h5>
+  <div class="card-body">
+    <a asp-action="Guardar" asp-controller="Puesto" class="btn btn-success"><i class="bi bi-person-plus me-1"></i>Puestos de trabajo</a>
+    <hr/>
+    <table class="table table-responsive"> 
+      <thead>
+         <tr>
+            <th>ID</th>
+            <th>Nombre del puesto</th>
+            <th>Departamento correspondiente</th>
+            <th>Descripcion</th>
+            <th></th>
+         </tr>
+      </thead>
+      <tbody>
+         @foreach (var item in Model)
+         {
+            <tr>
+               <td>@item.IdPuestoEmpleado</td>
+               <td>@item.NombrePuesto</td>
+               <td>
+                  @{
+                     var idDepartamento = item.IdDepartamento.ToString();
+                     var Departamento = ViewBag.Departamentos as List<SelectListItem>;
+                     var DepartamentoItem = Departamento.Find(p => p.Value == idDepartamento);
+                     if (DepartamentoItem != null)
+                     {
+                           @DepartamentoItem.Text
+                     }
+                     else
+                     {
+                           <span>Sin Departamento asignado</span>
+                     }
+                  }
+               </td>
+               <td>@item.Descripcion</td>
+               <td class="text-center">
+                  <a asp-action="Editar" asp-controller="Puesto" class="btn btn-primary btn-sm me-2" asp-route-Id = "@item.IdPuestoEmpleado"><i class="bi bi-pencil me-1"></i>Editar</a>
+                  <a asp-action="Eliminar" asp-controller="Puesto" class="btn btn-danger btn-sm" asp-route-Id = "@item.IdPuestoEmpleado"><i class="bi bi-person-dash me-1"></i>Eliminar</a>
+               </td>
+            </tr>
+             
+         }
+      </tbody>
+    </table>
+    
+  </div>
+</div>

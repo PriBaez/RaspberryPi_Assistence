@@ -1,0 +1,70 @@
+@model List<Empleado>
+@{
+   ViewData["Title"] = "Lista de empleados";
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+  <h5 class="card-header">Empleados en nomina</h5>
+  <div class="card-body">
+    <a asp-action="Guardar" asp-controller="Empleado" class="btn btn-success"><i class="bi bi-person-plus me-1"></i>Empleados de la empresa</a>
+    <hr/>
+    <table class="table table-responsive"> 
+      <thead>
+         <tr>
+            <th>ID</th>
+            <th>Nombre Completo</th>
+            <th>Correo Electronico</th>
+            <th>Tel.</th>
+            <th>Fecha de ingreso</th>
+            <th>Puesto</th>
+            <th>Activo</th>
+            <th></th>
+         </tr>
+      </thead>
+      <tbody>
+         @foreach (var item in Model)
+         {
+            <tr>
+               <td>@item.Id</td>
+               <td>@item.Nombre</td>
+               <td>@item.CorreoElectronico</td>
+               <td>@item.NumeroTelefono</td>
+               <td>@item.FechaIngreso</td>
+               <td>
+                  @{
+                     var idPuesto = item.IdPuestoEmpleado.ToString();
+                     var puesto = ViewBag.Puestos as List<SelectListItem>;
+                     var puestoItem = puesto.Find(p => p.Value == idPuesto);
+                     if (puestoItem != null)
+                     {
+                           @puestoItem.Text
+                     }
+                     else
+                     {
+                           <span>Sin puesto</span>
+                     }
+                  }
+               </td>
+               <td>
+                   @if (item.Activo)
+                  {
+                     <span class="text-success">Activo</span>
+                  }
+                  else
+                  {
+                     <span class="text-danger">Inactivo</span>
+                  }
+               </td>
+               <td class="text-center">
+                  <a asp-action="Editar" asp-controller="Empleado" class="btn btn-primary btn-sm me-2" asp-route-Id = "@item.Id"><i class="bi bi-pencil me-1"></i>Editar</a>
+                  <a asp-action="Eliminar" asp-controller="Empleado" class="btn btn-danger btn-sm" asp-route-Id = "@item.Id"><i class="bi bi-person-dash me-1"></i>Eliminar</a>
+               </td>
+            </tr>
+             
+         }
+      </tbody>
+    </table>
+    
+  </div>
+</div>

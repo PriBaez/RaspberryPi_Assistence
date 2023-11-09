@@ -1,0 +1,32 @@
+@model Empleado
+@{
+   ViewData["Title"] = "Eliminar";
+   Layout = "~/Views/Shared/_Layout.cshtml";
+   ViewData["BodyId"] = "appointment-body";
+}
+
+<div class="card">
+  <h5 class="card-header">Eliminar Empleado</h5>
+  <div class="card-body">
+
+    <form asp-action="Eliminar" asp-controller="Empleado" method="post">
+
+        <input asp-for="Id" type="hidden" class="form-control">
+
+        <div class="alert alert-danger" role="alert">
+        Desea eliminar al siguiente empleado de la base de datos?
+            <p>
+                <b>ID #:</b> @Model.Id<br>
+                <b>Nombre:</b> @Model.Nombre <br>
+                <b>Telefono:</b> @Model.NumeroTelefono <br>
+                <b>Fecha de ingreso:</b> @Model.FechaIngreso <br>
+                <b>Puesto:</b> @Model.IdPuestoEmpleado <br>
+                <b>Correo Electronico:</b> @Model.CorreoElectronico 
+            </p>
+        </div>
+        
+        <button type="submit" class="btn btn-danger me-2"><i class="bi bi-person-check me-1"></i>Eliminar</button>
+        <a asp-action="Listar" asp-controller="Empleado" class="btn btn-secondary"><i class="bi bi-arrow-90deg-left me-1"></i>Volver a la lista</a>
+    </form>
+  </div>
+</div>

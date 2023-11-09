@@ -1,0 +1,69 @@
+@model frontend.Models.Empleado
+@{
+    ViewData["Title"] = "Guardar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var today = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<div class="card">
+  <h5 class="card-header">Registro de Empleado</h5>
+  <div class="card-body">
+    <form asp-action="Guardar" asp-controller="Empleado" method="post"> 
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input asp-for="Nombre" type="text" class="form-control" id="nombre">
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="correoElectronico" class="form-label">Correo Electronico</label>
+            <input asp-for="CorreoElectronico" type="text" class="form-control" id="correoElectronico">
+            <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="numeroTelefono" class="form-label">Telefono</label>
+            <input asp-for="NumeroTelefono" type="tel" class="form-control" id="numeroTelefono" 
+            placeholder="809-245-6782" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+            <span asp-validation-for="NumeroTelefono" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+            <input asp-for="FechaNacimiento" type="date" class="form-control" id="fechaNacimiento">
+            <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="fechaIngreso" class="form-label">Fecha de ingreso</label>
+            <input asp-for="FechaIngreso" type="date" class="form-control" id="fechaIngreso">
+            <span asp-validation-for="FechaIngreso" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="IdPuestoEmpleado">Puesto</label>
+            <select asp-for="IdPuestoEmpleado" asp-items="ViewBag.Puestos" class="form-control">
+                <option value="">Seleccionar un puesto</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary me-2"><i class="bi bi-person-check me-1"></i>Guardar</button>
+        <a asp-action="Listar" asp-controller="Empleado" class="btn btn-secondary"><i class="bi bi-arrow-90deg-left me-1"></i>Volver a la lista</a>
+    </form>
+    
+    @{
+        if (@ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        
+        } else if (@ViewBag.SuccessMessage != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+        
+    }
+    
+  </div>
+</div>
