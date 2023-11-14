@@ -1,0 +1,8 @@
+C:\Users\Admin\VSCode\cl_app\frontend\executable\frontend.exe
+C:\Users\Admin\VSCode\cl_app\frontend\executable\appsettings.Development.json
+C:\Users\Admin\VSCode\cl_app\frontend\executable\appsettings.json
+C:\Users\Admin\VSCode\cl_app\frontend\executable\frontend.dll
+C:\Users\Admin\VSCode\cl_app\frontend\executable\frontend.deps.json
+C:\Users\Admin\VSCode\cl_app\frontend\executable\frontend.runtimeconfig.json
+C:\Users\Admin\VSCode\cl_app\frontend\executable\frontend.pdb
+C:\Users\Admin\VSCode\cl_app\frontend\executable\Newtonsoft.Json.dll
