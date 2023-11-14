@@ -1,0 +1,33 @@
+@model List<Historial>
+@{
+   ViewData["Title"] = "Historial asistencia";
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+  <h5 class="card-header">Historial de asistencia</h5>
+  <div class="card-body">
+    <hr/>
+    <table class="table table-responsive"> 
+      <thead>
+         <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">ID Empleado</th>
+            <th class="text-center">Fecha registro asistencia</th>
+            <th></th>
+         </tr>
+      </thead>
+      <tbody>
+         @foreach (var item in Model)
+         {
+            <tr>
+               <td class="text-center">@item.HistorialId</td>
+               <td class="text-center">@item.PersonaId</td>
+               <td class="text-center">@item.FechaCaptura</td>
+            </tr>
+         }
+      </tbody>
+    </table>
+    
+  </div>
+</div>

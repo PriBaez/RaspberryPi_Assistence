@@ -13,6 +13,16 @@ html {
   min-height: 100%;
 }
 
-body {
+body::after {
+  content: "";
   margin-bottom: 60px;
+  background-image: url('../img/415.jpg');
+  background-size: cover;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }

@@ -20,14 +20,17 @@ namespace frontend.Controllers
         {
             var puestos = await _service.GetAllPuestos();
             var departamentos = await _drpLst.GetDepartamentosForDropdown();
+            await Task.Delay(2000);
             ViewBag.Departamentos = departamentos;
             return View(puestos);
         }
         
         public  async Task<IActionResult> Guardar()
         {
+           
             var departamentos = await _drpLst.GetDepartamentosForDropdown();
             ViewBag.Departamentos = departamentos;
+            await Task.Delay(2000);
             return View();
         }
         
@@ -42,7 +45,7 @@ namespace frontend.Controllers
             {
                
                 HttpResponseMessage response = await _service.CreatePuesto(puesto);
-                
+                await Task.Delay(2000);
                 var content = "";
                 if (response.IsSuccessStatusCode)
                         {
@@ -54,7 +57,7 @@ namespace frontend.Controllers
                         }
                         else
                         {
-                            ViewBag.ErrorMessage = "Error en la solicitud POST, contacte al administrador. Código de estado: " + response.StatusCode;
+                            ViewBag.ErrorMessage = "Error: la solicitud fue completada con errores, contacte al administrador. Código de estado: " + response.StatusCode;
                             return View();
                         }
             } catch (Exception ex) 
@@ -70,9 +73,10 @@ namespace frontend.Controllers
 
         public async Task<IActionResult> Editar(int id)
         {
+            var puestoToUpdate = await _service.GetPuestoById(id);
+            await Task.Delay(2000); 
             var departamentos = await _drpLst.GetDepartamentosForDropdown();
             ViewBag.Departamentos = departamentos;
-            var puestoToUpdate = await _service.GetPuestoById(id);
             return View(puestoToUpdate);
         }
 

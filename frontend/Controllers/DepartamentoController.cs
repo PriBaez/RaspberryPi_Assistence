@@ -49,14 +49,14 @@ namespace frontend.Controllers
                         else
                         {
                             // La solicitud no fue exitosa, manejar el error
-                            ViewBag.ErrorMessage = "Error en la solicitud POST, contacte al administrador. Código de estado: " + response.StatusCode;
+                                Console.WriteLine("Error en la solicitud POST, contacte al administrador. Código de estado: " + response.StatusCode);
                                 return View();
                         }
             } catch (Exception ex) 
             {
                 
                 // Error en la solicitud
-                ViewBag.ErrorMessage = "Error al realizar la solicitud POST, contacte al administrador: " + ex.Message;
+                Console.WriteLine("Error al realizar la solicitud POST, contacte al administrador:");
                 Console.WriteLine(ex.Message);
             }
             
@@ -90,28 +90,19 @@ namespace frontend.Controllers
                 return View();
         }
 
-        public async Task<IActionResult> Eliminar(int id)
+        public async Task<IActionResult> Eliminar(int Id)
         {
-            var Departamento = await _service.GetDepartamentoById(id);
-            return View(Departamento);
+            var departamento = await _service.GetDepartamentoById(Id);
+            return View(departamento);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Eliminar(int id, Departamento departamento)
+        public async Task<IActionResult> Eliminar(int Id, Departamento departamento)
         {
-            if (!ModelState.IsValid)
-            {
-                Console.WriteLine("El modelo no es valido");
-            }
-            Console.WriteLine($"id: {id}, Departamento:{departamento.IdDepartamento}");
-            
-            if(id != departamento.IdDepartamento || departamento is null)
-            {
-                return View();
-            }
-            
-            var respuesta = await _service.EliminarDepartamento(id);
-
+           
+            await Task.Delay(2000);
+            Console.WriteLine($"tipo id: {Id.GetType()}");
+            var respuesta = await _service.EliminarDepartamento(Id);
 
             if(respuesta.IsSuccessStatusCode)
                 return RedirectToAction("Listar");

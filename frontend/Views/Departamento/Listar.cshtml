@@ -7,7 +7,7 @@
 <div class="card">
   <h5 class="card-header">Departamentos</h5>
   <div class="card-body">
-    <a asp-action="Guardar" asp-controller="Departamento" class="btn btn-success"><i class="bi bi-person-plus me-1"></i>Puestos de trabajo</a>
+    <a asp-action="Guardar" asp-controller="Departamento" class="btn btn-success"><i class="bi bi-person-plus me-1"></i>Agregar Departamento</a>
     <hr/>
     <table class="table table-responsive"> 
       <thead>
@@ -22,10 +22,10 @@
          {
             <tr>
                <td>@item.IdDepartamento</td>
-               <td>@item.NombreDepartamento</td>
+               <td >@item.NombreDepartamento</td>
                <td class="text-center">
                   <a asp-action="Editar" asp-controller="Departamento" class="btn btn-primary btn-sm me-2" asp-route-Id = "@item.IdDepartamento"><i class="bi bi-pencil me-1"></i>Editar</a>
-                  <a asp-action="Eliminar" asp-controller="Departamento" class="btn btn-danger btn-sm" asp-route-Id = "@item.IdDepartamento"><i class="bi bi-person-dash me-1"></i>Eliminar</a>
+                  <a asp-action="Eliminar" asp-controller="Departamento" class="btn btn-danger btn-sm" asp-route-Id = "@item.IdDepartamento"><i class="bi bi-x-circle"></i> Eliminar</a>
                </td>
             </tr>
              

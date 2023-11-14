@@ -12,15 +12,22 @@ namespace frontend.Services
 {
     public class EmpleadoService: IEmpleadoService
     {
-        // IPAddressUtility utility = new IPAddressUtility();
-        // private string ip_address = utility.GetIpAddress();
-        private string ip_address = "http://172.16.32.224:5000";
+        static IPAddressUtility utility = new IPAddressUtility();
+
+        public async Task<string> ip_address()
+        {
+            string hostname = await utility.GetIpAddress();
+            await Task.Delay(2);
+            return $"http://{hostname}:5000";
+        } 
         public async Task<List<Empleado>> GetEmpleados()
         {
            
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"{ip_address}/api/empleados";
+                string hostname = await ip_address();
+                await Task.Delay(2000);
+                string apiUrl = $"{hostname}/api/empleados";
 
                 try
                 {
@@ -53,7 +60,8 @@ namespace frontend.Services
             // Implementar lógica para obtener un empleado por su ID
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"{ip_address}/api/empleado/{id}";
+                string hostname = await ip_address();
+                string apiUrl = $"{hostname}/api/empleado/{id}";
 
                 try
                 {
@@ -82,7 +90,9 @@ namespace frontend.Services
 
         public async Task<HttpResponseMessage> CrearEmpleado(Empleado empleado)
         {
-            string apiUrl = $"{ip_address}/api/empleado";
+            string hostname = await ip_address();
+            await Task.Delay(3);
+            string apiUrl = $"{hostname}/api/empleado";
 
              using (HttpClient client = new HttpClient())
             {
@@ -94,8 +104,8 @@ namespace frontend.Services
                     HttpResponseMessage response = await client.PostAsync(apiUrl, new StringContent(jsonData, System.Text.Encoding.UTF8, "application/json"));
                     return response;
                 }
-                catch {
-                    Console.WriteLine("Ecepcion");
+                catch (Exception e){
+                    Console.WriteLine("Excepcion: " + e.Message);
                     return new HttpResponseMessage(HttpStatusCode.InternalServerError); 
                 }
             }
@@ -103,7 +113,9 @@ namespace frontend.Services
 
         public async Task<HttpResponseMessage> ActualizarEmpleado(int id, Empleado empleado)
         {
-            string apiUrl = $"{ip_address}/api/empleado/{id}";
+            string hostname = await ip_address();
+            await Task.Delay(3);
+            string apiUrl = $"{hostname}/api/empleado/{id}";
 
              using (HttpClient client = new HttpClient())
             {
@@ -133,7 +145,8 @@ namespace frontend.Services
 
         public async Task<HttpResponseMessage> EliminarEmpleado(int id)
         {
-            string apiUrl = $"{ip_address}/api/empleado/{id}";
+            string hostname = await ip_address();
+            string apiUrl = $"{hostname}/api/empleado/{id}";
 
             using (HttpClient client = new HttpClient())
             {

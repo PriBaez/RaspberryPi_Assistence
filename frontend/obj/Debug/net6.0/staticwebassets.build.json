@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cvEeklL4t4mU9zkjq2g5WxG4vnBJ5V06MV9pnD3i+lE=",
+  "Hash": "+8dmp2EU67iYE80cQ7mIk+EE3WpS6E7e1CSAcMJEiO0=",
   "Source": "frontend",
   "BasePath": "_content/frontend",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\VSCode\\cl_app\\frontend\\wwwroot\\img\\415.jpg",
+      "SourceId": "frontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\VSCode\\cl_app\\frontend\\wwwroot\\",
+      "BasePath": "_content/frontend",
+      "RelativePath": "img/415.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\415.jpg"
     },
     {
       "Identity": "C:\\Users\\Admin\\VSCode\\cl_app\\frontend\\wwwroot\\js\\site.js",

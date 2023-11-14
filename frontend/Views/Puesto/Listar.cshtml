@@ -13,9 +13,9 @@
       <thead>
          <tr>
             <th>ID</th>
-            <th>Nombre del puesto</th>
-            <th>Departamento correspondiente</th>
-            <th>Descripcion</th>
+            <th class="text-center">Nombre del puesto</th>
+            <th class="text-center">Departamento correspondiente</th>
+            <th class="text-center">Descripcion</th>
             <th></th>
          </tr>
       </thead>
@@ -23,13 +23,13 @@
          @foreach (var item in Model)
          {
             <tr>
-               <td>@item.IdPuestoEmpleado</td>
-               <td>@item.NombrePuesto</td>
-               <td>
+               <td class="text-center">@item.IdPuestoEmpleado</td>
+               <td class="text-center">@item.NombrePuesto</td>
+               <td class="text-center">
                   @{
                      var idDepartamento = item.IdDepartamento.ToString();
-                     var Departamento = ViewBag.Departamentos as List<SelectListItem>;
-                     var DepartamentoItem = Departamento.Find(p => p.Value == idDepartamento);
+                     var departamento = ViewBag.Departamentos as List<SelectListItem>;
+                     var DepartamentoItem = departamento.Find(p => p.Value == idDepartamento);
                      if (DepartamentoItem != null)
                      {
                            @DepartamentoItem.Text
@@ -40,10 +40,10 @@
                      }
                   }
                </td>
-               <td>@item.Descripcion</td>
+               <td class="text-center">@item.Descripcion</td>
                <td class="text-center">
-                  <a asp-action="Editar" asp-controller="Puesto" class="btn btn-primary btn-sm me-2" asp-route-Id = "@item.IdPuestoEmpleado"><i class="bi bi-pencil me-1"></i>Editar</a>
-                  <a asp-action="Eliminar" asp-controller="Puesto" class="btn btn-danger btn-sm" asp-route-Id = "@item.IdPuestoEmpleado"><i class="bi bi-person-dash me-1"></i>Eliminar</a>
+                  <a asp-action="Editar" asp-controller="Puesto" class="btn btn-primary btn-sm me-2 mb-2" asp-route-Id = "@item.IdPuestoEmpleado"><i class="bi bi-pencil me-1"></i>  Editar</a>
+                  <a asp-action="Eliminar" asp-controller="Puesto" class="btn btn-danger btn-sm" asp-route-Id = "@item.IdPuestoEmpleado"><i class="bi bi-x-circle"></i> Eliminar</a>
                </td>
             </tr>
              

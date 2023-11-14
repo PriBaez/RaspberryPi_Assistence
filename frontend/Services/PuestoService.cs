@@ -12,14 +12,20 @@ namespace frontend.Services
     public class PuestoService : IPuestoService
     {
     
-        // IPAddressUtility utility = new IPAddressUtility();
-        // private string ip_address = utility.GetIpAddress();
-        private string ip_address = "http://172.16.32.224:5000"; 
+       static IPAddressUtility utility = new IPAddressUtility();
+
+        public async Task<string> ip_address()
+        {
+            string hostname = await utility.GetIpAddress();
+            await Task.Delay(2);
+            return $"http://{hostname}:5000";
+        } 
         public async Task<List<Puesto>> GetAllPuestos()
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"{ip_address}/api/puesto";
+                string hostname = await ip_address();
+                string apiUrl = $"{hostname}/api/puesto";
 
                 try
                 {
@@ -30,18 +36,17 @@ namespace frontend.Services
                     {
                         // Leer y mostrar la respuesta JSON
                         var content = await response.Content.ReadAsStringAsync();
-                        
                         var deserializedData = string.IsNullOrEmpty(content) ? new List<Puesto>() : JsonConvert.DeserializeObject<List<Puesto>>(content);
                         return deserializedData != null ? deserializedData : new List<Puesto>();
                     }
                     else
                     {
-                        Console.WriteLine($"Error en la solicitud: {response.StatusCode}\nDetalles: {response.RequestMessage}");
+                        Console.WriteLine($"Error en la solicitud GET de puestos: {response.StatusCode}\nDetalles: {response.RequestMessage}");
                     }
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Error en la solicitud: {e.Message}");
+                    Console.WriteLine($"Error en la solicitud GET de puestos: {e.Message}");
                 }
             }
             return new List<Puesto>();
@@ -51,7 +56,9 @@ namespace frontend.Services
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"{ip_address}/api/puesto/{id}";
+                string hostname = await ip_address();
+
+                string apiUrl = $"{hostname}/api/puesto/{id}";
 
                 try
                 {
@@ -72,7 +79,8 @@ namespace frontend.Services
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Error en la solicitud: {e.Message}");
+                    Console.WriteLine($"Error en la solicitud GET puesto: {e.Message}");
+                    Console.WriteLine(apiUrl);
                 }
             }
             return new Puesto();
@@ -80,7 +88,8 @@ namespace frontend.Services
 
         public async Task<HttpResponseMessage> CreatePuesto(Puesto puesto)
         {
-            string apiUrl = $"{ip_address}/api/puesto";
+            string hostname = await ip_address();
+            string apiUrl = $"{hostname}/api/puesto";
 
              using (HttpClient client = new HttpClient())
             {
@@ -90,8 +99,8 @@ namespace frontend.Services
                     HttpResponseMessage response = await client.PostAsync(apiUrl, new StringContent(jsonData, System.Text.Encoding.UTF8, "application/json"));
                     return response;
                 }
-                catch {
-                    Console.WriteLine("Ecepcion");
+                catch (Exception e) {
+                    Console.WriteLine("Excepcion: " + e.Message);
                     return new HttpResponseMessage(HttpStatusCode.InternalServerError);
                 }
             }
@@ -99,7 +108,8 @@ namespace frontend.Services
 
         public async Task<HttpResponseMessage> UpdatePuesto(int id, Puesto puesto)
         {
-           string apiUrl = $"{ip_address}/api/puesto/{id}";
+           string hostname = await ip_address();
+           string apiUrl = $"{hostname}/api/puesto/{id}";
 
              using (HttpClient client = new HttpClient())
             {
@@ -130,7 +140,8 @@ namespace frontend.Services
 
         public async Task<HttpResponseMessage> DeletePuesto(int id)
         {
-            string apiUrl = $"{ip_address}/api/puesto/{id}";
+            string hostname = await ip_address();
+            string apiUrl = $"{hostname}/api/puesto/{id}";
 
             using (HttpClient client = new HttpClient())
             {

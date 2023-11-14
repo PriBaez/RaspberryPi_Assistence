@@ -3,6 +3,7 @@ using frontend.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using frontend.Models;
 using frontend.Models.ViewData;
+using System.Runtime.InteropServices;
 namespace frontend.Utils
 {
      public class DrpLstPuesto: IDrpLstPuesto
@@ -27,8 +28,7 @@ namespace frontend.Utils
                             NombreDepartamento = p.NombreDepartamento,
                         }).ToList();
 
-            Console.WriteLine(lstDepartamentos.ToString());
-            
+        
             List<SelectListItem> items = lstDepartamentos.ConvertAll(x => {
                 return new SelectListItem()
                 {

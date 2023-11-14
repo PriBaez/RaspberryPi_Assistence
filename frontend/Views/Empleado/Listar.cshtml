@@ -7,31 +7,31 @@
 <div class="card">
   <h5 class="card-header">Empleados en nomina</h5>
   <div class="card-body">
-    <a asp-action="Guardar" asp-controller="Empleado" class="btn btn-success"><i class="bi bi-person-plus me-1"></i>Empleados de la empresa</a>
+    <a asp-action="Guardar" asp-controller="Empleado" class="btn btn-success"><i class="bi bi-person-plus me-1"></i>Agregar empleado</a>
     <hr/>
     <table class="table table-responsive"> 
       <thead>
          <tr>
-            <th>ID</th>
-            <th>Nombre Completo</th>
-            <th>Correo Electronico</th>
-            <th>Tel.</th>
-            <th>Fecha de ingreso</th>
-            <th>Puesto</th>
-            <th>Activo</th>
-            <th></th>
+            <th class="text-center">ID</th>
+            <th class="text-center">Nombre Completo</th>
+            <th class="text-center">Correo Electronico</th>
+            <th class="text-center">Tel.</th>
+            <th class="text-center">Fecha de ingreso</th>
+            <th class="text-center" style="white-space: nowrap">Puesto</th>
+            <th style="white-space: nowrap">Activo</th>
+            <th style="white-space: nowrap"></th>
          </tr>
       </thead>
       <tbody>
          @foreach (var item in Model)
          {
             <tr>
-               <td>@item.Id</td>
-               <td>@item.Nombre</td>
-               <td>@item.CorreoElectronico</td>
-               <td>@item.NumeroTelefono</td>
-               <td>@item.FechaIngreso</td>
-               <td>
+               <td class="text-center" style="white-space: nowrap">@item.Id</td>
+               <td class="text-center" style="white-space: nowrap">@item.Nombre</td>
+               <td class="text-center" style="white-space: nowrap">@item.CorreoElectronico</td>
+               <td class="text-center" style="white-space: nowrap">@item.NumeroTelefono</td>
+               <td class="text-center">@item.FechaIngreso</td>
+               <td class="text-center">
                   @{
                      var idPuesto = item.IdPuestoEmpleado.ToString();
                      var puesto = ViewBag.Puestos as List<SelectListItem>;
@@ -56,9 +56,9 @@
                      <span class="text-danger">Inactivo</span>
                   }
                </td>
-               <td class="text-center">
-                  <a asp-action="Editar" asp-controller="Empleado" class="btn btn-primary btn-sm me-2" asp-route-Id = "@item.Id"><i class="bi bi-pencil me-1"></i>Editar</a>
-                  <a asp-action="Eliminar" asp-controller="Empleado" class="btn btn-danger btn-sm" asp-route-Id = "@item.Id"><i class="bi bi-person-dash me-1"></i>Eliminar</a>
+               <td class="text-center container-fluid">
+                  <a asp-action="Editar" asp-controller="Empleado" class="btn btn-primary btn-sm me-2 mb-2" asp-route-Id = "@item.Id"><i class="bi bi-pencil me-1"></i> Editar </a>
+                  <a asp-action="Eliminar" asp-controller="Empleado" class="btn btn-danger btn-sm me-2" asp-route-Id = "@item.Id"><i class="bi bi-x-circle"></i> Eliminar</a>
                </td>
             </tr>
              

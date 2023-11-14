@@ -8,21 +8,12 @@ var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy  =>
-                      {
-                          policy.WithOrigins("http://127.0.0.1:5000",
-                                              "http://192.168.0.102:5000");
-                      });
-});
-
 builder.Services.AddScoped<IEmpleadoService, EmpleadoService>();
 builder.Services.AddScoped<IPuestoService, PuestoService>();
 builder.Services.AddScoped<IDepartamentoService, DepartamentoService>();
 builder.Services.AddScoped<IDrpLstEmpleado, DrpLstEmpleado>();
 builder.Services.AddScoped<IDrpLstPuesto, DrpLstPuesto>();
+builder.Services.AddScoped<IHistorialService, HistorialService>();
 
 var app = builder.Build();
 
@@ -44,6 +35,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Empleado}/{action=Listar}/{id?}");
+    pattern: "{controller=Historial}/{action=Listar}/{id?}");
 
 app.Run();

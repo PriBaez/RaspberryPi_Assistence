@@ -12,15 +12,27 @@ namespace frontend.Services
 {
     public class DepartamentoService: IDepartamentoService
     {
-        // IPAddressUtility utility = new IPAddressUtility();
-        // private string ip_address = utility.GetIpAddress();
-        private string ip_address = "http://172.16.32.224:5000";
+        static IPAddressUtility utility = new IPAddressUtility();
+
+        public async Task<string> ip_address()
+        {
+            string hostname = await utility.GetIpAddress();
+            await Task.Delay(2000);
+            return $"http://{hostname}:5000";
+        }
+        
         public async Task<List<Departamento>> GetDepartamentos()
         {
-           
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"{ip_address}/api/departamentos";
+                string hostname = await ip_address();
+                
+                if (hostname == "Error")
+                {
+                    hostname = await ip_address();
+                }
+
+                string apiUrl = $"{hostname}/api/departamentos";
 
                 try
                 {
@@ -40,7 +52,8 @@ namespace frontend.Services
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Error en la solicitud: {e.Message}");
+                    Console.WriteLine($"Error en la solicitud GET departamentos: {e.Message}");
+                    Console.WriteLine(apiUrl);
                 }
             }
             return new List<Departamento>();
@@ -51,8 +64,9 @@ namespace frontend.Services
             // Implementar lógica para obtener un Departamento por su ID
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"{ip_address}/api/departamento/{id}";
-
+                string hostname_ip = await ip_address();
+                string apiUrl = $"{hostname_ip}/api/departamento/{id}";
+                Console.WriteLine(apiUrl);
                 try
                 {
                     // Realizar una solicitud GET para obtener Departamentos
@@ -71,7 +85,7 @@ namespace frontend.Services
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Error en la solicitud: {e.Message}");
+                    Console.WriteLine($"Error en la solicitud GET departamento: {e.Message}");
                 }
             }
             return new Departamento();
@@ -79,7 +93,8 @@ namespace frontend.Services
 
         public async Task<HttpResponseMessage> CrearDepartamento(Departamento departamento)
         {
-            string apiUrl = $"{ip_address}/api/departamento";
+            string hostname_ip = await ip_address();
+            string apiUrl = $"{hostname_ip}/api/departamento";
 
              using (HttpClient client = new HttpClient())
             {
@@ -98,7 +113,8 @@ namespace frontend.Services
 
         public async Task<HttpResponseMessage> ActualizarDepartamento(int id, Departamento departamento)
         {
-            string apiUrl = $"{ip_address}/api/departamento/{id}";
+            string hostname_ip = await ip_address();
+            string apiUrl = $"{hostname_ip}/api/departamento/{id}";
 
              using (HttpClient client = new HttpClient())
             {
@@ -128,7 +144,8 @@ namespace frontend.Services
 
         public async Task<HttpResponseMessage> EliminarDepartamento(int id)
         {
-            string apiUrl = $"{ip_address}/api/departamento/{id}";
+            string hostname_ip = await ip_address();
+            string apiUrl = $"{hostname_ip}/api/departamento/{id}";
 
             using (HttpClient client = new HttpClient())
             {

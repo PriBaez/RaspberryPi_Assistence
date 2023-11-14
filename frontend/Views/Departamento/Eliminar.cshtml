@@ -10,6 +10,8 @@
 
     <form asp-action="Eliminar" asp-controller="Departamento" method="post">
 
+        <input asp-for="IdDepartamento" type="hidden" class="form-control" readonly>
+
         <div class="alert alert-danger" role="alert">
         Desea eliminar el siguiente Departamento de la base de datos?
             <p>

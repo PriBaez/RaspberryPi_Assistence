@@ -18,6 +18,7 @@ namespace frontend.Controllers
         public async Task<IActionResult> Listar()
         {
             var empleados = await _service.GetEmpleados();
+            await Task.Delay(2000);
             var puestos = await _drpLst.GetPuestosForDropdown();
             ViewBag.Puestos = puestos;
             return View(empleados);
@@ -83,6 +84,7 @@ namespace frontend.Controllers
         public async Task<IActionResult> Editar(int Id)
         {
             var empleado = await _service.GetEmpleadoById(Id);
+            await Task.Delay(2000);
             var puestos = await _drpLst.GetPuestosForDropdown();
             ViewBag.Puestos = puestos;
             return View(empleado);
@@ -96,7 +98,7 @@ namespace frontend.Controllers
             }
 
             var respuesta = await _service.ActualizarEmpleado(empleado.Id, empleado);
-
+            await Task.Delay(2000);
             if(respuesta.IsSuccessStatusCode)
                 return RedirectToAction("Listar");
             else
