@@ -26,3 +26,8 @@ C:\Users\Admin\VSCode\cl_app\frontend\obj\Debug\net6.0\refint\frontend.dll
 C:\Users\Admin\VSCode\cl_app\frontend\obj\Debug\net6.0\frontend.pdb
 C:\Users\Admin\VSCode\cl_app\frontend\obj\Debug\net6.0\frontend.genruntimeconfig.cache
 C:\Users\Admin\VSCode\cl_app\frontend\obj\Debug\net6.0\ref\frontend.dll
+C:\Users\Admin\VSCode\cl_app\frontend\bin\Debug\net6.0\executable\web.config
+C:\Users\Admin\VSCode\cl_app\frontend\bin\Debug\net6.0\executable\appsettings.Development.json
+C:\Users\Admin\VSCode\cl_app\frontend\bin\Debug\net6.0\executable\appsettings.json
+C:\Users\Admin\VSCode\cl_app\frontend\bin\Debug\net6.0\executable\frontend.deps.json
+C:\Users\Admin\VSCode\cl_app\frontend\bin\Debug\net6.0\executable\frontend.runtimeconfig.json

@@ -13,7 +13,7 @@ public class IPAddressUtility
         {
             // Obtiene la dirección IP asociada con el nombre del host
             IPAddress[] addresses = await Dns.GetHostAddressesAsync(hostName);
-            await Task.Delay(2000);
+            //await Task.Delay(2000);
 
             foreach (IPAddress address in addresses)
             {
