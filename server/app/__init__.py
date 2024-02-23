@@ -3,7 +3,7 @@ from flask import Flask
 app = Flask(__name__)
 
 # Configuración de la base de datos, sesiones, etc.
-from .repositories import sqlite_repository, init_sqlite_db, GoogleRepository
+from .repositories import sqlite_repository, GoogleRepository
 # Importar controladores
 from .controllers import DepartamentoController
 from .controllers import PuestoController

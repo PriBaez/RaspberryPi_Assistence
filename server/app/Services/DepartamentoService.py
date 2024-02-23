@@ -10,12 +10,13 @@ class DepartamentoService:
     def __init__(self) -> None:
         self._utils = GoogleSheetsUtils()
         self._google_repo = GoogleSheetsRepository()
+        self.worksheet = "departamentos"
         pass
     
 
     def get_departamentos_from_google(self):
         try:
-            hoja = self._utils.open_worksheet()
+            hoja = self._utils.open_worksheet(worksheet=self.worksheet)
             # Lee los datos de la hoja de cálculo
             datos = hoja.get_all_values()
             df = pd.DataFrame(datos[1:], columns=datos[0])
@@ -70,8 +71,8 @@ class DepartamentoService:
 
     def create_departamento_from_google(self, departamento:Departamento):
         try:
-            self.hoja = self._utils.open_worksheet()
-            id = self._utils.get_last_id_from_google()
+            self.hoja = self._utils.open_worksheet(worksheet=self.worksheet)
+            id = self._utils.get_last_id_from_google(worksheet=self.worksheet)
             fila = [id, departamento.Nombre]
             self.hoja.append_row(fila)
             return 201
@@ -92,15 +93,15 @@ class DepartamentoService:
 
     def update_departamento_from_google(self, departamento:Departamento):
         try:
-            self.hoja = self._utils.open_worksheet()
+            self.hoja = self._utils.open_worksheet(worksheet=self.worksheet)
             # Obtener la fila que contiene el ID a actualizar
-            indice_fila = self._utils.obtener_indice_fila_por_id(departamento.Id)
+            indice_fila = self._utils.obtener_indice_fila_por_id(departamento.Id, worksheet=self.worksheet)
 
             if indice_fila:
                 # Actualizar cada celda con los nuevos datos del modelo Departamento
                 departamento = Departamento(id_departamento=departamento.Id, nombre_departamento=departamento.Nombre)
-                self.hoja.update_cell(indice_fila, self._utils.obtener_indice_columna('id_departamento'), departamento.Id)
-                self.hoja.update_cell(indice_fila, self._utils.obtener_indice_columna('nombre_departamento'), departamento.Nombre)
+                self.hoja.update_cell(indice_fila, self._utils.obtener_indice_columna('id_departamento', self.worksheet), departamento.Id)
+                self.hoja.update_cell(indice_fila, self._utils.obtener_indice_columna('nombre_departamento', self.worksheet), departamento.Nombre)
                 return 200
             else:
                 raise ServiceError(f"No se encontró ningún registro con ID {departamento.Id}.")
@@ -121,9 +122,9 @@ class DepartamentoService:
 
     def delete_departamento_from_google(self, id:int):
        try:
-        self.hoja = self._utils.open_worksheet()
+        self.hoja = self._utils.open_worksheet(worksheet=self.worksheet)
         # Obtener el índice de la fila que contiene el ID a borrar
-        indice_fila = self._utils.obtener_indice_fila_por_id(id)
+        indice_fila = self._utils.obtener_indice_fila_por_id(id, worksheet=self.worksheet)
 
         if indice_fila:
             # Borrar la fila en la hoja
