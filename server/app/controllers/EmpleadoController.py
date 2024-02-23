@@ -1,4 +1,4 @@
-from app.repositories import sqlite_repository
+from ..repositories import sqlite_repository
 from flask import Blueprint, jsonify, request
 
 empleado_bp = Blueprint('empleado', __name__)

@@ -17,6 +17,7 @@ public class IPAddressUtility
 
             foreach (IPAddress address in addresses)
             {
+                Console.WriteLine($"Dirección IP encontrada: {address}");
                 // Filtra las direcciones IPv4
                 if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 {
@@ -25,12 +26,37 @@ public class IPAddressUtility
                 }
             }
 
-            Console.WriteLine("No se encontraron direcciones IPv4.");
-            return "Error";
+            string ipv6Addr = GetIPv6Address(hostName);
+            return ipv6Addr;
         }
         catch (Exception e)
         {
             Console.WriteLine($"Error al obtener la dirección IP: {e.Message}");
+            return "Error";
+        }
+    }
+
+    public static string GetIPv6Address(string hostname)
+    {
+        try
+        {
+            IPHostEntry ipEntry = System.Net.Dns.GetHostEntry(hostname);
+            IPAddress[] addresses = ipEntry.AddressList;
+
+             // Busca la última dirección IPv6 en la lista
+                foreach (var address in addresses)
+                {
+                    if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                    {
+                        return address.ToString();
+                    }
+                }
+            
+            return "No Ipv6 address found";
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Error occurred while retrieving the IP address.");
             return "Error";
         }
     }

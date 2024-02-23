@@ -13,7 +13,25 @@ namespace frontend.Services
         {
             string hostname = await utility.GetIpAddress();
             await Task.Delay(2);
-            return $"http://{hostname}:5000";
+            
+            UriBuilder uriBuilder = new UriBuilder();
+
+            // Establece el esquema (http, https, etc.)
+            uriBuilder.Scheme = "http";
+
+            // Verifica si la dirección es IPv6
+            if (hostname.Contains(":"))
+            {
+                // Envuelve la dirección IPv6 entre corchetes
+                uriBuilder.Host = $"[{hostname}]";
+            }
+            else
+            {
+                // Dirección IPv4
+                uriBuilder.Host = hostname;
+            }
+
+            return $"http://{uriBuilder.Host}:5000";
         } 
         public async Task<List<Historial>> GetHistorial()
         {

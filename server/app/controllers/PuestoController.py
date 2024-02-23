@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.repositories import sqlite_repository
+from ..repositories import sqlite_repository
 
 puesto_bp = Blueprint('puestos', __name__)
 
