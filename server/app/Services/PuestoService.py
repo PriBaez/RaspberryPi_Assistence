@@ -6,7 +6,7 @@ from ..repositories import sqlite_repository
 from ..Services.utils.GoogleSheetsUtils import GoogleSheetsUtils
 
 
-class puestoService:
+class PuestoService:
     def __init__(self) -> None:
         self._utils = GoogleSheetsUtils()
         self._google_repo = GoogleSheetsRepository()

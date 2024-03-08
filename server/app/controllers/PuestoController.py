@@ -4,11 +4,11 @@ from flask import Blueprint, request, jsonify
 
 from app.Errors.ServiceError import ServiceError
 from ..Model.Puesto import Puesto
-from ..Services.PuestoService import puestoService
+from ..Services.PuestoService import PuestoService
 from ..repositories import sqlite_repository
 
 puesto_bp = Blueprint('puestos', __name__)
-_puestos = puestoService()
+_puestos = PuestoService()
 
 @puesto_bp.route('/puestos', methods=['GET'])
 def get_puestos():

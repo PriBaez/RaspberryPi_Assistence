@@ -16,6 +16,24 @@ class GoogleSheetsUtils:
 
     def get_last_id_from_google(self, worksheet):
         hoja = self.open_worksheet(worksheet)
+        filas = hoja.get_all_values()
+        
+        if not filas:
+            return 1  # Si la hoja está vacía, devuelve 1 como primer ID
+
+        # Suponiendo que la columna de ID está en la primera posición
+        columna_id = [int(fila[0]) for fila in filas]
+
+        # Eliminar el encabezado si existe
+        if columna_id and columna_id[0] == "id_departamento":
+            columna_id = columna_id[1:]
+
+        ultimo_id = max(columna_id, default=0)
+        return ultimo_id + 1
+
+
+    def get_last_id_from_google(self, worksheet):
+        hoja = self.open_worksheet(worksheet)
         columna_id = hoja.col_values(1)  # Suponiendo que ID está en la primera columna (columna 1)
         # Eliminar el encabezado si existe
         if columna_id and columna_id[0] == "id_departamento":
